@@ -1,0 +1,19 @@
+{
+  "name": "ng2chat",
+  "version": "1.0.0",
+  "description": "Angular 2 Chat App using NodeJS and Socket.io",
+  "main": "index.js",
+  "scripts": {
+
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "start": "concurrent \"node ./bin/www\" \"npm run tsc:w\""
+
+  },
+  "author": "Cassian Lup",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.4.8"
+  }
+}
