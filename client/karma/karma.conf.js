@@ -22,5 +22,5 @@ module.exports = (config) => {
     webpackServer: {
       noInfo: true
     }
-   });
+  });
 };
