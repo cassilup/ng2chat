@@ -1,2 +1,4 @@
 node_modules/
 typings/
+client/**/*.js
+client/**/*.js.map
