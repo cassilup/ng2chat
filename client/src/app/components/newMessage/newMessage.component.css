@@ -1,0 +1,31 @@
+.new-message-wrapper {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: lightskyblue;
+  padding: 10px;
+}
+
+.new-message {
+  width: calc(100% - 130px);
+  padding: 12px;
+  border: 0;
+}
+
+.btn-send {
+  float: right;
+  width: 100px;
+  padding: 12px;
+  border: 0;
+  background-color: #eee;
+  outline: none;
+}
+
+.btn-send:hover {
+  background-color: #ddd;
+}
+
+.btn-send:active {
+  background-color: #ccc;
+}

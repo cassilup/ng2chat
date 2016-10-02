@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import './messageList.component.css';
+
 @Component({
   selector: 'message-list',
   template: `
@@ -10,27 +12,7 @@ import { Component } from '@angular/core';
         </li>
       </ul>
     </div>
-  `,
-  styles: [`
-    .message-list-wrapper {
-      width: 100%;
-      height: 100%;
-    }
-
-    .message-list-wrapper .message-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .message-list-wrapper .message-list li {
-      padding: 10px;
-    }
-
-    .message-list-wrapper .message-list li:nth-child(odd) {
-      background-color: #eee;
-    }
-  `]
+  `
 })
 export class MessageListComponent {
   private messages = [{

@@ -4,6 +4,7 @@ const HtmlWebpack = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const ChunkWebpack = webpack.optimize.CommonsChunkPlugin;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '..');
 
@@ -21,7 +22,8 @@ module.exports = {
   module: {
      loaders: [
        { loader: 'raw', test: /\.(css|html)$/ },
-       { exclude: /node_modules/, loader: 'ts', test: /\.ts$/ }
+       { exclude: /node_modules/, loader: 'ts', test: /\.ts$/ },
+       { loader: ExtractTextPlugin.extract("style-loader", "css-loader"), test: /\.css$/ }
      ]
    },
    output: {
@@ -37,8 +39,9 @@ module.exports = {
     new HtmlWebpack({ // automatically injects <script> tag into index.html
       filename: 'index.html',
       inject: 'body',
-      template: path.resolve(rootDir, 'src', 'app', 'index.html')
-    })
+      template: path.resolve(rootDir, 'src', 'index.html')
+    }),
+    new ExtractTextPlugin("styles.css")
   ],
   resolve: {
     extensions: [ '', '.js', '.ts' ]
