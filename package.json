@@ -4,7 +4,7 @@
   "description": "Angular 2 Chat App using NodeJS and Socket.io",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./client/webpack/webpack.dev.js",
+    "start": "webpack-dev-server --host 192.168.0.185 --config ./client/webpack/webpack.dev.js",
     "test": "karma start ./client/karma/karma.conf.js",
     "test:headless": "karma start ./client/karma/karma.conf.js --browsers PhantomJS"
   },
