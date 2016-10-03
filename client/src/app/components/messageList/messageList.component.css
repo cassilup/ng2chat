@@ -1,3 +1,8 @@
+.message-list-wrapper {
+  overflow: scroll;
+  height: 100%;
+}
+
 .message-list-wrapper .message-list {
   list-style-type: none;
   padding: 0;
@@ -7,6 +12,7 @@
 
 .message-list-wrapper .message-list li {
   padding: 10px;
+  font-weight: 300;
 }
 
 .message-list-wrapper .message-list li:nth-child(odd) {
