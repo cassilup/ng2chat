@@ -1,5 +1,4 @@
-import { Component } from "@angular/core";
-import { Injector } from "@angular/core";
+import { Component, ElementRef } from "@angular/core";
 import { ChatService } from '../../shared/chat.service';
 
 import "./newMessage.component.css";
@@ -8,19 +7,16 @@ import "./newMessage.component.css";
   selector: 'new-message',
   template: `
     <div class="new-message-wrapper">
-      <input type="text" class="new-message" #newMessageInput />
-      <button type="text" class="btn-send" (click)="sendMessage(newMessageInput.value); clearField(newMessageInput);">Send</button>
+      <input type="text" class="new-message" #newMessageInput (keyup.enter)="sendMessage(newMessageInput)" />
+      <button type="text" class="btn-send" (click)="sendMessage(newMessageInput);">Send</button>
     </div>
   `
 })
 export class NewMessageComponent {
   constructor(private chatService:ChatService) { }
 
-  sendMessage = (text:string) => {
-    this.chatService.sendMessage(text);
+  sendMessage = (text:any) => {
+    this.chatService.sendMessage(text.value);
+    text.value = "";
   };
-
-  clearField = (element:any) => {
-    element.value = "";
-  }
 }
