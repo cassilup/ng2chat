@@ -18,9 +18,7 @@ import './messageList.component.css';
   providers: [ ChatService ]
 })
 export class MessageListComponent {
-  chatService = this.injector.get(ChatService);
+  constructor(public chatService:ChatService) { }
 
-  constructor(private injector:Injector) { }
-
-  messages = this.chatService.messages;
+  messages = this.chatService.getMessages();
 }

@@ -31,4 +31,8 @@ export class ChatService {
   public sendMessage(text:string) {
     this.messages.push({ text });
   }
+
+  public getMessages():Array<Object> {
+    return this.messages;
+  }
 }
