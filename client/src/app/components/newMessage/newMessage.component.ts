@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Injector } from "@angular/core";
-import { ChatService } from '../../shared/chat.service.ts';
+import { ChatService } from '../../shared/chat.service';
 
 import "./newMessage.component.css";
 
@@ -11,13 +11,10 @@ import "./newMessage.component.css";
       <input type="text" class="new-message" #newMessageInput />
       <button type="text" class="btn-send" (click)="sendMessage(newMessageInput.value)">Send</button>
     </div>
-  `,
-  providers: [ChatService]
+  `
 })
 export class NewMessageComponent {
-  chatService = this.injector.get(ChatService);
-
-  constructor(private injector: Injector) { }
+  constructor(private chatService:ChatService) { }
 
   sendMessage = (text:string) => {
     this.chatService.sendMessage(text);

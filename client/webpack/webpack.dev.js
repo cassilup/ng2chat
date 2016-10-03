@@ -14,7 +14,7 @@ module.exports = {
     contentBase: path.resolve(rootDir, 'dist'),
     port: 9000
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: {
     app: [ path.resolve(rootDir, 'src', 'bootstrap') ],
     vendor: [ path.resolve(rootDir, 'src', 'vendor') ]
