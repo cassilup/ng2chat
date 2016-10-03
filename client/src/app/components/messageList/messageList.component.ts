@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Injector } from '@angular/core';
+import { ChatService } from "../../shared/chat.service.ts";
 
 import './messageList.component.css';
 
@@ -7,21 +9,18 @@ import './messageList.component.css';
   template: `
     <div class="message-list-wrapper">
       <ul class="message-list">
-        <li *ngFor="let message of messages">
-          {{message.text}}
+        <li *ngFor="let message of messages; let i = index">
+          {{i + 1}}: {{message.text}}
         </li>
       </ul>
     </div>
-  `
+  `,
+  providers: [ ChatService ]
 })
 export class MessageListComponent {
-  private messages = [{
-    text: "first message"
-  }, {
-    text: "2nd message"
-  }, {
-    text: "3rd message"
-  }, {
-    text: "4th message"
-  }];
+  chatService = this.injector.get(ChatService);
+
+  constructor(private injector:Injector) { }
+
+  messages = this.chatService.messages;
 }
