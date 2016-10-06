@@ -44,6 +44,6 @@ module.exports = {
     new ExtractTextPlugin("styles.css")
   ],
   resolve: {
-    extensions: [ '', '.js', '.ts' ]
+    extensions: [ '', '.ts', '.js' ]
   }
 };
