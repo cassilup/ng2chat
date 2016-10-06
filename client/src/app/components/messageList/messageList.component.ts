@@ -18,10 +18,7 @@ import './messageList.component.css';
   `
 })
 export class MessageListComponent {
-  private _subscription;
-  private messages:Message[];
+  constructor(public chatService:ChatService) { }
 
-  constructor(public chatService:ChatService) {
-    this.messages = this.chatService.getMessages();
-  }
+  messages:Message[] = this.chatService.getMessages();
 }
