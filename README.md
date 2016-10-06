@@ -226,6 +226,233 @@ Once these are installed, you're ready to go further.
 15. `karma.entry.js` will be the entry point for Karma when testing our application.
 
     ```js
+    require('es6-shim');
+    require('reflect-metadata');
+    require('zone.js/dist/zone');
+    require('zone.js/dist/long-stack-trace-zone');
+    require('zone.js/dist/async-test');
+    require('zone.js/dist/fake-async-test');
+    require('zone.js/dist/sync-test');
+    require('zone.js/dist/proxy');
+    require('zone.js/dist/jasmine-patch');
 
+    const browserTesting = require('@angular/platform-browser-dynamic/testing');
+    const coreTesting = require('@angular/core/testing');
+
+    coreTesting.TestBed.resetTestEnvironment();
+    coreTesting.TestBed.initTestEnvironment(
+      browserTesting.BrowserDynamicTestingModule,
+      browserTesting.platformBrowserDynamicTesting()
+    );
+
+    const context = require.context('../src/', true, /\.spec\.ts$/);
+    context.keys().forEach(context);
+
+    Error.stackTraceLimit = Infinity;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
     ```
-16. 
+
+    Once configured, this file will not require tweaking.
+
+16. The last step of the configuration stage is setting up Webpack.
+
+    We create a `webpack/` folder inside the `client/` folder.
+
+    The first file we create in that folder is `webpack.dev.js`.
+
+    ```js
+    'use strict';
+
+    const HtmlWebpack = require('html-webpack-plugin');
+    const path = require('path');
+    const webpack = require('webpack');
+    const ChunkWebpack = webpack.optimize.CommonsChunkPlugin;
+    const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+    const rootDir = path.resolve(__dirname, '..');
+
+    module.exports = {
+      debug: true,
+      devServer: {
+        contentBase: path.resolve(rootDir, 'dist'),
+        port: 9000
+      },
+      devtool: 'inline-source-map',
+      entry: {
+        app: [ path.resolve(rootDir, 'src', 'bootstrap') ],
+        vendor: [ path.resolve(rootDir, 'src', 'vendor') ]
+      },
+      module: {
+         loaders: [
+           { loader: 'raw', test: /\.(css|html)$/ },
+           { exclude: /node_modules/, loader: 'ts', test: /\.ts$/ },
+           { loader: ExtractTextPlugin.extract("style-loader", "css-loader"), test: /\.css$/ }
+         ]
+       },
+       output: {
+         filename: '[name].bundle.js',
+         path: path.resolve(rootDir, 'dist')
+       },
+       plugins: [
+        new ChunkWebpack({ // prevents us from having same lib imported multiple times
+          filename: 'vendor.bundle.js',
+          minChunks: Infinity,
+          name: 'vendor'
+        }),
+        new HtmlWebpack({ // automatically injects <script> tag into index.html
+          filename: 'index.html',
+          inject: 'body',
+          template: path.resolve(rootDir, 'src', 'index.html')
+        }),
+        new ExtractTextPlugin("styles.css")
+      ],
+      resolve: {
+        extensions: [ '', '.ts', '.js' ]
+      }
+    };
+    ```
+
+    Notice we are loading styles through Webpack.
+
+    Also, for the `resolve` block, the order of the extensions **does** matter.
+
+18. We now need to write `webpack.test.js`:
+
+    ```js
+    'use strict';
+
+    const path = require('path');
+    const webpack = require('webpack');
+
+    module.exports = {
+      devtool: 'inline-source-map',
+      module: {
+        loaders: [
+          { loader: 'raw', test: /\.(css|html)$/ },
+          { exclude: /node_modules/, loader: 'ts', test: /\.ts$/ },
+          { loader: "style-loader!css-loader", test: /\.css$/ }
+        ]
+      },
+      resolve: {
+        extensions: ['', '.js', '.ts'], // empty string is for node_modules, which we don't specify extension for
+        modulesDirectories: ['node_modules'],
+        root: path.resolve('.', 'src')
+      }
+    };
+    ```
+
+    Simpler than `webpack.dev.js`, it only loads the bare minimum for tests to execute.
+
+## 2. Writing the Angular 2 Application
+
+1. Create `src/` folder
+2. Create `index.html`
+    * Notice there's no `<script>` tag. Neither a `<style>` one.
+    * Notice the `<app>` tag.
+3. Bootstrap Angular 2 app through `bootstrap.ts`.
+    ```js
+    import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+    import { AppModule } from './app/app.module';
+
+    const platform = platformBrowserDynamic();
+    platform.bootstrapModule(AppModule);
+    ```
+
+    We need to use `platformBrowserDynamic` because we're writing an app that compiles the templates dynamically in the browser. We also need thesethis line because Angular 2 can run on multiple platforms.
+
+4. Create `vendor.ts`
+    ```js
+    import 'es6-promise';
+    import 'reflect-metadata';
+    import 'zone.js/dist/zone';
+    ```
+
+    Libraries that Angular 2 needs in order to run. We keep them separated for the sake of clarity.
+
+5. Create the `app/` folder inside `client/src/`.
+
+    The folder structure now looks like this:
+     ```
+    /
+    |-  client/
+        |-  typings/
+        |-  typings.json
+        |-  karma/
+            |-  karma.conf.js
+            |-  karma.entry.js
+        |-  src/
+            |-  app/
+            |-  bootstrap.ts
+            |-  index.html
+            |-  styles.css
+            |-  vendor.ts
+        |-  webpack/
+            |-  webpack.dev.js
+            |-  webpack.test.js
+        |-  typings.json
+    |-  node_modules/
+    |-  server/
+        |-  app.js
+        |-  index.html
+    |-  package.json
+    |-  tsconfig.json
+    ```
+
+5. Declaring the Application Module
+
+    We need to create the `client/src/app/app.module.ts` file.
+
+    Angular 2 RC-5 brought the `@NgModule()` decorator. With its help, we can create modules in our app.
+
+    ```js
+    import { NgModule }      from '@angular/core';
+    import { BrowserModule } from '@angular/platform-browser';
+    import { App } from './app.component';
+
+    import { MessageListComponent } from './components/messageList/messageList.component';
+    import { NewMessageComponent } from "./components/newMessage/newMessage.component";
+
+    import "../styles.css";
+
+    @NgModule({
+      imports:      [ BrowserModule ], // because it's a web application and it runs in the browser
+      declarations: [ App, MessageListComponent, NewMessageComponent ],
+      bootstrap:    [ App ]
+    })
+    export class AppModule { }
+    ```
+
+    More information on `@NgModule` can be found here: https://angular.io/docs/ts/latest/guide/ngmodule.html
+
+
+ 6. Once we've created our module, we can proceed to create our first Component. `app/app/component.ts`:
+
+    ```js
+    import { Component } from "@angular/core";
+
+    @Component({
+      selector: 'app',
+      template: `
+        <div class="app-wrapper">Hi!</div>
+      `
+    })
+    export class App {}
+    ```
+
+    This is the implementation of the `<app>` selector in `index.html`.
+
+7. `messageList`
+    * Each component gets its own folder.
+    * `*ngFor`. More Information: https://angular.io/docs/ts/latest/tutorial/toh-pt2.html
+    * Template Literals; Inline Templates.
+8. `newMessage`
+    * Events and properties.
+9. `chatService`
+    * `@Injectable`. More Information: https://angular.io/docs/ts/latest/guide/dependency-injection.html#!%23injectable
+10. Providing the service to the module, instantiating the service.
+11. Submitting new messages.
+12. Making use of ChatService in MessageList.
+    * RxJS
+13. Bringing in socket.io and connecting ChatService to the Backend.
+
+And we're done. :)
