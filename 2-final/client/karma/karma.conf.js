@@ -5,7 +5,6 @@ module.exports = (config) => {
     autoWatch: true,
     browsers: ['Chrome', 'PhantomJS'],
     files: [
-      '../node_modules/es6-shim/es6-shim.min.js',
       'karma.entry.js'
     ],
     frameworks: ['jasmine'],
