@@ -32,18 +32,18 @@ Once these are installed, you're ready to go further.
 ## 1. Tooling & Initial Configuration
 1. Clone this repository:
     ```sh
-    $ git clone https://github.com/cassilup/ng2chat.git
+    git clone https://github.com/cassilup/ng2chat.git
     ```
 
 2. Navigate to the `1-start/` folder.
     ```sh
-    $ cd 1-start/
+    cd 1-start/
     ```
     This folder holds the starting point, Socket.io's example. We will be using this code as a starting point. It provides us with a Node.js server that listens for incoming messages and emits them to all the clients that are connected.
 
 3. Install the Node modules by running:
     ```sh
-    $ npm install
+    npm install
     ```
     This command looks for the `package.json` file and install all packages listed under `dependencies` and `devDependencies`.
 
@@ -62,7 +62,7 @@ Once these are installed, you're ready to go further.
 
 4. Run the app to make sure it works. Running this command will start the server:
     ```sh
-    $ node app.js
+    node app.js
     ```
     Navigate to http://localhost:3000. You should see the Socket.io chat app.
 
@@ -86,7 +86,7 @@ Once these are installed, you're ready to go further.
 6. We are now ready to bring in Angular2 libraries. Change directory to `client/`.
 7. Install Angular2 npm packages:
     ```sh
-    $ npm install --save @angular/common @angular/compiler @angular/core @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router bootstrap core-js reflect-metadata rxjs zone.js
+    npm install --save @angular/common @angular/compiler @angular/core @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router bootstrap core-js reflect-metadata rxjs zone.js
     ```
 
     To find out more about the npm packages that Angular2 requires, click here: https://angular.io/docs/ts/latest/guide/npm-packages.html.
@@ -99,13 +99,13 @@ Once these are installed, you're ready to go further.
 
 8. Install Webpack & Tooling npm packages:
     ```sh
-    $ npm install --save-dev webpack webpack-dev-server typescript ts-loader css-loader extract-text-webpack-plugin html-webpack-plugin raw-loader style-loader
-    $ npm install --global --save-dev typings
+    npm install --save-dev webpack webpack-dev-server typescript ts-loader css-loader extract-text-webpack-plugin html-webpack-plugin raw-loader style-loader
+    npm install --global --save-dev typings
     ```
 
 9. Install Testing npm packages:
     ```sh
-    $ npm install --save-dev jasmine-core karma karma-chrome-launcher karma-jasmine karma-phantomjs-launcher karma-sourcemap-loader karma-webpack phantomjs-prebuilt es6-shim
+    npm install --save-dev jasmine-core karma karma-chrome-launcher karma-jasmine karma-phantomjs-launcher karma-sourcemap-loader karma-webpack phantomjs-prebuilt es6-shim
     ```
 
 10. Configure `package.json` as a Task Runner. Add the following section to your `package.json` file:
@@ -128,8 +128,8 @@ Once these are installed, you're ready to go further.
     ```
 12. Install needed typings:
     ```sh
-    $ typings install dt~jasmine env~node --save --global
-    $ typings install es6-promise --save
+    typings install dt~jasmine env~node --save --global
+    typings install es6-promise --save
     ```
 
     The `--global` flag means that the library is bound to the global scope (eg. it will be invoked by using `window.<variable>`).
@@ -140,7 +140,7 @@ Once these are installed, you're ready to go further.
 
     **Best Practice:** Recommended way of reinstalling typings is to run:
     ```sh
-    $ typings install --overwrite --clean
+    typings install --overwrite --clean
     ```
 
     More information on typings can be found here: https://github.com/typings/typings
@@ -343,6 +343,32 @@ Once these are installed, you're ready to go further.
     ```
 
     Simpler than `webpack.dev.js`, it only loads the bare minimum for tests to execute.
+
+19. To start our Angular2 app in development mode, type:
+
+    ```sh
+    npm start
+    ```
+
+    To start the API, type:
+
+    ```sh
+    npm run api
+    ```
+
+    Additionally, to start the unit tests, run:
+
+    ```sh
+    npm test
+    ```
+
+    or
+
+    ```sh
+    npm test:headless
+    ```
+
+    This is how we will be starting our application from here on.
 
 ## 2. Writing the Angular2 Application
 
