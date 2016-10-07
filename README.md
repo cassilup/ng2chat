@@ -451,8 +451,7 @@ Once these are installed, you're ready to go further.
 
     More information on `@NgModule` can be found here: https://angular.io/docs/ts/latest/guide/ngmodule.html
 
-
- 6. Once we've created our module, we can proceed to create our first Component. `app/app/component.ts`:
+6. Once we've created our module, we can proceed to create our first Component. `app/app/component.ts`:
 
     ```js
     import { Component } from "@angular/core";
