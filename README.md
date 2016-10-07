@@ -129,7 +129,7 @@ Once these are installed, you're ready to go further.
 12. Install needed typings:
     ```sh
     typings install dt~jasmine env~node --save --global
-    typings install es6-promise --save
+    typings install common~es6-promise --save
     ```
 
     The `--global` flag means that the library is bound to the global scope (eg. it will be invoked by using `window.<variable>`).
