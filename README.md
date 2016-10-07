@@ -1,19 +1,19 @@
-# Angular 2 Workshop: ng2chat
+# Angular2 Workshop: ng2chat
 
 ## Introduction
-Starting from the [official Socket.io chat example](https://github.com/rauchg/chat-example), we are building an Angular 2 chat app in order to explore some of Angular's features.
+Starting from the [official Socket.io chat example](https://github.com/rauchg/chat-example), we are building an Angular2 chat app in order to explore some of Angular's features.
 
 We will be using Webpack for bundling all the assets together.
 
 The Workshop has 2 sections:
 1. Tooling & Initial Configuration
-2. Writing the Angular 2 Application
+2. Writing the Angular2 Application
 
 Topics we will be covering during this workshop:
-* Angular 2
+* Angular2
 * TypeScript (and Typings)
 * ES6
-* Webpack (Loaders, Dev Server)
+* Webpack (Loaders, Dev Server, Plugins)
 * Web Components (with inline templates and styles)
 * NPM as Task Runner
 * Jasmine & Karma
@@ -82,13 +82,13 @@ Once these are installed, you're ready to go further.
         |-  app.js
         |-  index.html
     ```
-6. We are now ready to bring in Angular 2 libraries. Change directory to `client/`.
+6. We are now ready to bring in Angular2 libraries. Change directory to `client/`.
 7. Install Angular2 npm packages:
     ```sh
     $ npm install --save @angular/common @angular/compiler @angular/core @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router bootstrap core-js reflect-metadata rxjs zone.js
     ```
 
-    To find out more about the npm packages that Angular 2 requires, click here: https://angular.io/docs/ts/latest/guide/npm-packages.html.
+    To find out more about the npm packages that Angular2 requires, click here: https://angular.io/docs/ts/latest/guide/npm-packages.html.
 
     To find out more about zone.js, here's an excellent video presentation by Brian Ford: https://www.youtube.com/watch?v=3IqtmUscE_U
 
@@ -183,13 +183,13 @@ Once these are installed, you're ready to go further.
 
 
 
-14. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular 2 code, to emphasise the importance of writing tests.
+14. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
 
     Inside the `client/` folder, create a new folder named `karma/`.
 
     We will need 2 files in there: `karma.conf.js` and `karma.entry.js`.
 
-    For more information on this approach to testing, read this article: https://semaphoreci.com/community/tutorials/setting-up-angular-2-with-webpack.
+    For More information on this approach to testing, read this article: https://semaphoreci.com/community/tutorials/setting-up-angular-2-with-webpack.
 
     `karma.conf.js` will have the following contents:
     ```js
@@ -221,7 +221,7 @@ Once these are installed, you're ready to go further.
     };
     ```
 
-    **Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For more information on ES6, click here: http://es6-features.org/#Constants.
+    **Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For More information on ES6, click here: http://es6-features.org/#Constants.
 
 15. `karma.entry.js` will be the entry point for Karma when testing our application.
 
@@ -343,13 +343,13 @@ Once these are installed, you're ready to go further.
 
     Simpler than `webpack.dev.js`, it only loads the bare minimum for tests to execute.
 
-## 2. Writing the Angular 2 Application
+## 2. Writing the Angular2 Application
 
 1. Create `src/` folder
 2. Create `index.html`
     * Notice there's no `<script>` tag. Neither a `<style>` one.
     * Notice the `<app>` tag.
-3. Bootstrap Angular 2 app through `bootstrap.ts`.
+3. Bootstrap Angular2 app through `bootstrap.ts`.
     ```js
     import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     import { AppModule } from './app/app.module';
@@ -358,7 +358,7 @@ Once these are installed, you're ready to go further.
     platform.bootstrapModule(AppModule);
     ```
 
-    We need to use `platformBrowserDynamic` because we're writing an app that compiles the templates dynamically in the browser. We also need thesethis line because Angular 2 can run on multiple platforms.
+    We need to use `platformBrowserDynamic` because we're writing an app that compiles the templates dynamically in the browser. We also need thesethis line because Angular2 can run on multiple platforms.
 
 4. Create `vendor.ts`
     ```js
@@ -367,7 +367,7 @@ Once these are installed, you're ready to go further.
     import 'zone.js/dist/zone';
     ```
 
-    Libraries that Angular 2 needs in order to run. We keep them separated for the sake of clarity.
+    Libraries that Angular2 needs in order to run. We keep them separated for the sake of clarity.
 
 5. Create the `app/` folder inside `client/src/`.
 
@@ -402,7 +402,7 @@ Once these are installed, you're ready to go further.
 
     We need to create the `client/src/app/app.module.ts` file.
 
-    Angular 2 RC-5 brought the `@NgModule()` decorator. With its help, we can create modules in our app.
+    Angular2 RC-5 brought the `@NgModule()` decorator. With its help, we can create modules in our app.
 
     ```js
     import { NgModule }      from '@angular/core';
@@ -443,16 +443,24 @@ Once these are installed, you're ready to go further.
 
 7. `messageList`
     * Each component gets its own folder.
-    * `*ngFor`. More Information: https://angular.io/docs/ts/latest/tutorial/toh-pt2.html
+    * `*ngFor`. More information: https://angular.io/docs/ts/latest/tutorial/toh-pt2.html
     * Template Literals; Inline Templates.
 8. `newMessage`
     * Events and properties.
 9. `chatService`
-    * `@Injectable`. More Information: https://angular.io/docs/ts/latest/guide/dependency-injection.html#!%23injectable
+    * `@Injectable`. More information: https://angular.io/docs/ts/latest/guide/dependency-injection.html#!%23injectable
 10. Providing the service to the module, instantiating the service.
 11. Submitting new messages.
 12. Making use of ChatService in MessageList.
     * RxJS
+
+    More information:
+    * http://stackoverflow.com/questions/37363121/get-and-update-a-string-through-a-service-in-angular-2
+    * https://www.barbarianmeetscoding.com/blog/2016/04/02/getting-started-with-angular-2-step-by-step-6-consuming-real-data-with-http/
+
 13. Bringing in socket.io and connecting ChatService to the Backend.
 
-And we're done. :)
+    More information: http://www.syntaxsuccess.com/viewarticle/socket.io-with-rxjs-in-angular-2.0
+
+
+Aaaand, we're done! :)
