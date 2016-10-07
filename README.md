@@ -6,6 +6,7 @@ Starting from the [official Socket.io chat example](https://github.com/rauchg/ch
 We will be using Webpack for bundling all the assets together.
 
 The Workshop has 2 sections:
+
 1. Tooling & Initial Configuration
 2. Writing the Angular2 Application
 
