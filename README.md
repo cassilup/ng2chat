@@ -84,6 +84,9 @@ Once these are installed, you're ready to go further.
         |-  index.html
     ```
 #### 6. We are now ready to bring in Angular2 libraries. Change directory to `client/`.
+
+**Note:** `npm` commands relate to the first package.json they encounter while navigating the folder structure upwards.
+
 #### 7. Install Angular2 npm packages:
     ```sh
     npm install --save @angular/common @angular/compiler @angular/core @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router bootstrap core-js reflect-metadata rxjs zone.js
