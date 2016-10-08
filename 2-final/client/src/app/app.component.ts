@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MessageListComponent } from "./components/messageList/messageList.component";
 import { NewMessageComponent } from "./components/newMessage/newMessage.component";
 import { ChatService } from './shared/chat.service';
@@ -14,8 +14,12 @@ import { Message } from "./types";
   `,
   providers: [ ChatService ]
 })
-export class App {
+export class App implements OnInit {
+  messages:Message[];
+
   constructor(public chatService:ChatService) { }
 
-  messages:Message[] = this.chatService.getMessages();
+  ngOnInit() {
+    this.messages = this.chatService.getMessages();
+  }
 }
