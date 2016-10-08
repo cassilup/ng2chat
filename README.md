@@ -30,18 +30,18 @@ Please make sure you have `Node.js` and `npm` installed.
 Once these are installed, you're ready to go further.
 
 ## 1. Tooling & Initial Configuration
-1. Clone this repository:
+#### 1. Clone this repository:
     ```sh
     git clone https://github.com/cassilup/ng2chat.git
     ```
 
-2. Navigate to the `1-start/` folder.
+#### 2. Navigate to the `1-start/` folder.
     ```sh
     cd 1-start/
     ```
     This folder holds the starting point, Socket.io's example. We will be using this code as a starting point. It provides us with a Node.js server that listens for incoming messages and emits them to all the clients that are connected.
 
-3. Install the Node modules by running:
+#### 3. Install the Node modules by running:
     ```sh
     npm install
     ```
@@ -60,13 +60,13 @@ Once these are installed, you're ready to go further.
     |-  package.json
     ```
 
-4. Run the app to make sure it works. Running this command will start the server:
+#### 4. Run the app to make sure it works. Running this command will start the server:
     ```sh
     node app.js
     ```
     Navigate to http://localhost:3000. You should see the Socket.io chat app.
 
-5. Let's organise our app before we start bringing in new libraries.
+#### 5. Let's organise our app before we start bringing in new libraries.
      * Create a new folder: `client/`
      * Create a new folder: `server/`
      * Move `app.js` and `index.html` into `server/`.
@@ -83,8 +83,8 @@ Once these are installed, you're ready to go further.
         |-  app.js
         |-  index.html
     ```
-6. We are now ready to bring in Angular2 libraries. Change directory to `client/`.
-7. Install Angular2 npm packages:
+#### 6. We are now ready to bring in Angular2 libraries. Change directory to `client/`.
+#### 7. Install Angular2 npm packages:
     ```sh
     npm install --save @angular/common @angular/compiler @angular/core @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router bootstrap core-js reflect-metadata rxjs zone.js
     ```
@@ -97,18 +97,18 @@ Once these are installed, you're ready to go further.
     * Presentation: https://docs.google.com/presentation/d/1H3E2ToJ8VHgZS8eS6bRv-vg5OksObj5wv6gyzJJwOK0/edit#slide=id.p
     * Gist: https://gist.github.com/mhevery/63fdcdf7c65886051d55
 
-8. Install Webpack & Tooling npm packages:
+#### 8. Install Webpack & Tooling npm packages:
     ```sh
     npm install --save-dev webpack webpack-dev-server typescript ts-loader css-loader extract-text-webpack-plugin html-webpack-plugin raw-loader style-loader
     npm install --global --save-dev typings
     ```
 
-9. Install Testing npm packages:
+#### 9. Install Testing npm packages:
     ```sh
     npm install --save-dev jasmine-core karma karma-chrome-launcher karma-jasmine karma-phantomjs-launcher karma-sourcemap-loader karma-webpack phantomjs-prebuilt es6-shim
     ```
 
-10. Configure `package.json` as a Task Runner. Add the following section to your `package.json` file:
+#### 10. Configure `package.json` as a Task Runner. Add the following section to your `package.json` file:
     ```json
     ...
     "scripts": {
@@ -122,12 +122,12 @@ Once these are installed, you're ready to go further.
 
     If you are interested in finding out more about using NPM as a task runner, click here: http://paulcpederson.com/articles/npm-run/.
 
-11. Initialize typings:
+#### 11. Initialize typings:
     ```sh
     typings init
     ```
 
-12. Install needed typings:
+#### 12. Install needed typings:
     ```sh
     typings install dt~jasmine env~node dt~es6-promise --save --global
     ```
@@ -145,7 +145,7 @@ Once these are installed, you're ready to go further.
 
     More information on typings can be found here: https://github.com/typings/typings
 
-13. We now need to set up Typescript. We will do that by creating the `tsconfig.json` file with the following contents:
+#### 13. We now need to set up Typescript. We will do that by creating the `tsconfig.json` file with the following contents:
     ```json
     {
         "compilerOptions": {
@@ -182,7 +182,7 @@ Once these are installed, you're ready to go further.
     |-  tsconfig.json
     ```
 
-16. It's now time to set up Webpack.
+#### 16. It's now time to set up Webpack.
 
     We create a `webpack/` folder inside the `client/` folder.
 
@@ -245,7 +245,7 @@ Once these are installed, you're ready to go further.
     Also, for the `resolve` block, the order of the extensions **does** matter.
 
 
-19. To start our Angular2 app in development mode, type:
+#### 19. To start our Angular2 app in development mode, type:
 
         ```sh
         npm start
@@ -258,7 +258,7 @@ Once these are installed, you're ready to go further.
         ```
 
 
-14. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
+#### 14. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
 
         Inside the `client/` folder, create a new folder named `karma/`.
 
@@ -298,7 +298,7 @@ Once these are installed, you're ready to go further.
 
         **Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For More information on ES6, click here: http://es6-features.org/#Constants.
 
-    15. `karma.entry.js` will be the entry point for Karma when testing our application.
+#### 15. `karma.entry.js` will be the entry point for Karma when testing our application.
 
         ```js
         require('es6-shim');
@@ -329,7 +329,7 @@ Once these are installed, you're ready to go further.
 
         Once configured, this file will not require tweaking.
 
-18. We now need to write `webpack.test.js`:
+#### 18. We now need to write `webpack.test.js`:
 
     ```js
     'use strict';
@@ -356,7 +356,7 @@ Once these are installed, you're ready to go further.
 
     Simpler than `webpack.dev.js`, it only loads the bare minimum for tests to execute.
 
-19. Now that we've set up the testing environment, it's time to see it in action.
+#### 19. Now that we've set up the testing environment, it's time to see it in action.
 
     To start the test suite, run:
 
@@ -374,11 +374,11 @@ Once these are installed, you're ready to go further.
 
 ## 2. Writing the Angular2 Application
 
-1. Create `src/` folder
-2. Create `index.html`
+#### 1. Create `src/` folder
+#### 2. Create `index.html`
     * Notice there's no `<script>` tag. Neither a `<style>` one.
     * Notice the `<app>` tag.
-3. Bootstrap Angular2 app through `bootstrap.ts`.
+#### 3. Bootstrap Angular2 app through `bootstrap.ts`.
     ```js
     import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     import { AppModule } from './app/app.module';
@@ -389,7 +389,7 @@ Once these are installed, you're ready to go further.
 
     We need to use `platformBrowserDynamic` because we're writing an app that compiles the templates dynamically in the browser. We also need thesethis line because Angular2 can run on multiple platforms.
 
-4. Create `vendor.ts`
+#### 4. Create `vendor.ts`
     ```js
     import 'es6-promise';
     import 'reflect-metadata';
@@ -398,7 +398,7 @@ Once these are installed, you're ready to go further.
 
     Libraries that Angular2 needs in order to run. We keep them separated for the sake of clarity.
 
-5. Create the `app/` folder inside `client/src/`.
+#### 5. Create the `app/` folder inside `client/src/`.
 
     The folder structure now looks like this:
      ```
@@ -427,7 +427,7 @@ Once these are installed, you're ready to go further.
     |-  tsconfig.json
     ```
 
-5. Declaring the Application Module
+#### 5. Declaring the Application Module
 
     We need to create the `client/src/app/app.module.ts` file.
 
@@ -453,7 +453,7 @@ Once these are installed, you're ready to go further.
 
     More information on `@NgModule` can be found here: https://angular.io/docs/ts/latest/guide/ngmodule.html
 
-6. Once we've created our module, we can proceed to create our first Component. `app/app/component.ts`:
+#### 6. Once we've created our module, we can proceed to create our first Component. `app/app/component.ts`:
 
     ```js
     import { Component } from "@angular/core";
@@ -469,24 +469,24 @@ Once these are installed, you're ready to go further.
 
     This is the implementation of the `<app>` selector in `index.html`.
 
-7. `messageList`
+#### 7. `messageList`
     * Each component gets its own folder.
     * `*ngFor`. More information: https://angular.io/docs/ts/latest/tutorial/toh-pt2.html
     * Template Literals; Inline Templates.
-8. `newMessage`
+#### 8. `newMessage`
     * Events and properties.
-9. `chatService`
+#### 9. `chatService`
     * `@Injectable`. More information: https://angular.io/docs/ts/latest/guide/dependency-injection.html#!%23injectable
-10. Providing the service to the module, instantiating the service.
-11. Submitting new messages.
-12. Making use of ChatService in MessageList.
+#### 10. Providing the service to the module, instantiating the service.
+#### 11. Submitting new messages.
+#### 12. Making use of ChatService in MessageList.
     * RxJS
 
     More information:
     * http://stackoverflow.com/questions/37363121/get-and-update-a-string-through-a-service-in-angular-2
     * https://www.barbarianmeetscoding.com/blog/2016/04/02/getting-started-with-angular-2-step-by-step-6-consuming-real-data-with-http/
 
-13. Bringing in socket.io and connecting ChatService to the Backend.
+#### 13. Bringing in socket.io and connecting ChatService to the Backend.
 
     More information: http://www.syntaxsuccess.com/viewarticle/socket.io-with-rxjs-in-angular-2.0
 
