@@ -185,7 +185,7 @@ Our app structure now looks like this:
 |-  tsconfig.json
 ```
 
-#### 16. It's now time to set up Webpack.
+#### 14. It's now time to set up Webpack.
 
 We create a `webpack/` folder inside the `client/` folder.
 
@@ -248,7 +248,7 @@ Notice we are loading styles through Webpack.
 Also, for the `resolve` block, the order of the extensions **does** matter.
 
 
-#### 19. To start our Angular2 app in development mode, type:
+#### 15. To start our Angular2 app in development mode, type:
 
 ```sh
     npm start
@@ -261,7 +261,7 @@ Also, for the `resolve` block, the order of the extensions **does** matter.
 ```
 
 
-#### 14. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
+#### 16. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
 
     Inside the `client/` folder, create a new folder named `karma/`.
 
@@ -301,7 +301,7 @@ Also, for the `resolve` block, the order of the extensions **does** matter.
 
     **Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For More information on ES6, click here: http://es6-features.org/#Constants.
 
-#### 15. `karma.entry.js` will be the entry point for Karma when testing our application.
+#### 17. `karma.entry.js` will be the entry point for Karma when testing our application.
 
 ```js
     require('es6-shim');
@@ -430,7 +430,7 @@ The folder structure now looks like this:
 |-  tsconfig.json
 ```
 
-#### 5. Declaring the Application Module
+#### 6. Declaring the Application Module
 
 We need to create the `client/src/app/app.module.ts` file.
 
@@ -485,7 +485,7 @@ More information:
 * http://stackoverflow.com/questions/37363121/get-and-update-a-string-through-a-service-in-angular-2
 * https://www.barbarianmeetscoding.com/blog/2016/04/02/getting-started-with-angular-2-step-by-step-6-consuming-real-data-with-http/
 
-#### 13. Bringing in socket.io and connecting ChatService to the Backend.
+#### 8. Bringing in socket.io and connecting ChatService to the Backend.
 
 More information: http://www.syntaxsuccess.com/viewarticle/socket.io-with-rxjs-in-angular-2.0
 
