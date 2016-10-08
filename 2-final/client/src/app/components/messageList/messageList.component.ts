@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Injector } from '@angular/core';
 import { ChatService } from "../../shared/chat.service";
-import { Message } from "../../types";
 
 import './messageList.component.css';
 
@@ -15,10 +14,11 @@ import './messageList.component.css';
         </li>
       </ul>
     </div>
-  `
+  `,
+  inputs: [ 'messages' ]
 })
 export class MessageListComponent {
-  constructor(public chatService:ChatService) { }
+  // constructor(public chatService:ChatService) { }
 
-  messages:Message[] = this.chatService.getMessages();
+  // messages:Message[] = this.chatService.getMessages();
 }
