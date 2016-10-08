@@ -1,7 +1,12 @@
+```
+Note: This is a living document. Pull requests and Issues are most welcome.
+```
+
 # Angular2 Workshop: ng2chat
 
 ## Introduction
 Starting from the [official Socket.io chat example](https://github.com/rauchg/chat-example), we are building an Angular2 chat app in order to explore some of Angular's features.
+
 
 We will be using Webpack for bundling all the assets together.
 
@@ -12,15 +17,22 @@ The Workshop has 2 sections:
 
 Topics we will be covering during this workshop:
 * Angular2
+    * Bootstrapping,
+    * Components, Component Architecture,
+    * NgModule,
+    * Special Decorators,
+    * Services (Declaring, Providing and Injecting),
+    * Change detection (Zones provider by zone.js),
+    * RxJS (Observables),
+    * Templates (ngFor, HTMLElement by reference)
+    * Karma + Jasmine Testing,
+    * ...and others.
 * TypeScript (and Typings)
-* ES6
+* ES6 (classes, imports, arrow functions, template literals),
 * Webpack (Loaders, Dev Server, Plugins)
-* Web Components (with inline templates and styles)
 * NPM as Task Runner
 * Jasmine & Karma
-* Zone.js
 * Websockets
-* RxJS
 
 ## Before Starting
 Please make sure you have `Node.js` and `npm` installed.
@@ -39,7 +51,7 @@ git clone https://github.com/cassilup/ng2chat.git
 ```sh
 cd 1-start/
 ```
-This folder holds the starting point, Socket.io's example. We will be using this code as a starting point. It provides us with a Node.js server that listens for incoming messages and emits them to all the clients that are connected.
++ This folder holds the starting point, Socket.io's example. We will be using this code as a starting point. It provides us with a Node.js server that listens for incoming messages and emits them to all the clients that are connected.
 
 #### 3. Install the Node modules by running:
 ```sh
@@ -85,7 +97,7 @@ The new folder structure is:
 ```
 #### 6. We are now ready to bring in Angular2 libraries. Change directory to `client/`.
 
-**Note:** `npm` commands relate to the first package.json they encounter while navigating the folder structure upwards.
+**Note:** `npm` commands relate to the first `package.json` they encounter while navigating the folder structure upwards.
 
 #### 7. Install Angular2 npm packages:
 ```sh
@@ -103,7 +115,8 @@ Also, here is Misko Hevery's Zones proposal to TC39:
 #### 8. Install Webpack & Tooling npm packages:
 ```sh
 npm install --save-dev webpack webpack-dev-server typescript ts-loader css-loader extract-text-webpack-plugin html-webpack-plugin raw-loader style-loader
-npm install --global --save-dev typings
+npm install --global typings
+
 ```
 
 #### 9. Install Testing npm packages:
@@ -125,7 +138,7 @@ npm install --save-dev jasmine-core karma karma-chrome-launcher karma-jasmine ka
 
 If you are interested in finding out more about using NPM as a task runner, click here: http://paulcpederson.com/articles/npm-run/.
 
-#### 11. We now need to set up Typescript. We will do that by creating the `tsconfig.json` file with the following contents:
+#### 11. We now need to set up Typescript. We will do that by creating the `tsconfig.json` file in `client/` with the following contents:
 ```json
 {
     "compilerOptions": {
@@ -142,31 +155,38 @@ If you are interested in finding out more about using NPM as a task runner, clic
     ]
 }
 ```
+***Note:*** We place the `tsconfig.json` file in the `client/` folder because it is related to our Angular2 project, not to the node app in `server/`. Webpack will know to automatically search for a `tsconfig.json` and if it doesn't find it, move up the folder structure until it does. For more information on the subject, please read: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html.
 
-Here is the official documentation for Typescript's configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html.
+Information on why we have configured the `target` property to `es5` and have set `module` to `commonjs` can be found here: http://www.jbrantly.com/es6-modules-with-typescript-and-webpack/
 
-More information on JavaScript Module Loaders can be found here: https://appendto.com/2016/06/the-short-history-of-javascript-module-loaders/. We are using CommonJS, because that's what we're transpiling to.
+More information on JavaScript Module Loaders can be found here: https://appendto.com/2016/06/the-short-history-of-javascript-module-loaders/. We are setting the `module` option to CommonJS, because that's what we're transpiling to.
 
 #### 12. Initialize typings:
 ```sh
 typings init
 ```
 
+This will create the `typings.json` file in the folder where we ran this command.
+
 #### 13. Install needed typings:
 ```sh
 typings install dt~jasmine env~node dt~es6-promise --save --global
 ```
 
+This will create the `typings/` folder in the current folder. The `typings/` folder will contain the typings indicated in the `typings.json` file. Similar to how `npm` works by reading the `package.json` and creating the `node_modules/` off of it.
+
 The `--global` flag means that the library is bound to the global scope (eg. it will be invoked by using `window.<variable>`).
 
 `--save` adds the entry to `typings.json`.
 
-**Important!** Be sure not to run `typings init` or `typings install` in multiple
+**Important!** Be sure not to run `typings init` or `typings install` in multiple folders of your project. That will result in Typescript compilation errors.
 
 **Best Practice:** Recommended way of reinstalling typings is to run:
 ```sh
-typings install --overwrite --clean
+typings install -oc
 ```
+
+(That is the equivalent of running `typings install --overwrite --clean` and it deletes the `typings/` folder and recreates it.)
 
 More information on typings can be found here: https://github.com/typings/typings
 
@@ -177,12 +197,12 @@ Our app structure now looks like this:
 |-  client/
     |- typings/
     |- typings.json
+    |- tsconfig.json
 |-  node_modules/
 |-  server/
     |-  app.js
     |-  index.html
 |-  package.json
-|-  tsconfig.json
 ```
 
 #### 14. It's now time to set up Webpack.
@@ -422,12 +442,12 @@ The folder structure now looks like this:
         |-  webpack.dev.js
         |-  webpack.test.js
     |-  typings.json
+    |-  tsconfig.json
 |-  node_modules/
 |-  server/
     |-  app.js
     |-  index.html
 |-  package.json
-|-  tsconfig.json
 ```
 
 #### 6. Declaring the Application Module
