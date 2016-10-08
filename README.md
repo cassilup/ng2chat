@@ -125,30 +125,7 @@ npm install --save-dev jasmine-core karma karma-chrome-launcher karma-jasmine ka
 
 If you are interested in finding out more about using NPM as a task runner, click here: http://paulcpederson.com/articles/npm-run/.
 
-#### 11. Initialize typings:
-```sh
-typings init
-```
-
-#### 12. Install needed typings:
-```sh
-typings install dt~jasmine env~node dt~es6-promise --save --global
-```
-
-The `--global` flag means that the library is bound to the global scope (eg. it will be invoked by using `window.<variable>`).
-
-`--save` adds the entry to `typings.json`.
-
-**Important!** Be sure not to run `typings init` or `typings install` in multiple
-
-**Best Practice:** Recommended way of reinstalling typings is to run:
-```sh
-typings install --overwrite --clean
-```
-
-More information on typings can be found here: https://github.com/typings/typings
-
-#### 13. We now need to set up Typescript. We will do that by creating the `tsconfig.json` file with the following contents:
+#### 11. We now need to set up Typescript. We will do that by creating the `tsconfig.json` file with the following contents:
 ```json
 {
     "compilerOptions": {
@@ -169,6 +146,29 @@ More information on typings can be found here: https://github.com/typings/typing
 Here is the official documentation for Typescript's configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html.
 
 More information on JavaScript Module Loaders can be found here: https://appendto.com/2016/06/the-short-history-of-javascript-module-loaders/. We are using CommonJS, because that's what we're transpiling to.
+
+#### 12. Initialize typings:
+```sh
+typings init
+```
+
+#### 13. Install needed typings:
+```sh
+typings install dt~jasmine env~node dt~es6-promise --save --global
+```
+
+The `--global` flag means that the library is bound to the global scope (eg. it will be invoked by using `window.<variable>`).
+
+`--save` adds the entry to `typings.json`.
+
+**Important!** Be sure not to run `typings init` or `typings install` in multiple
+
+**Best Practice:** Recommended way of reinstalling typings is to run:
+```sh
+typings install --overwrite --clean
+```
+
+More information on typings can be found here: https://github.com/typings/typings
 
 Our app structure now looks like this:
 
@@ -251,88 +251,57 @@ Also, for the `resolve` block, the order of the extensions **does** matter.
 #### 15. To start our Angular2 app in development mode, type:
 
 ```sh
-    npm start
+npm start
 ```
 
-    To start the API, type:
+To start the API, type:
 
 ```sh
-    npm run api
+npm run api
 ```
 
 
 #### 16. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
 
-    Inside the `client/` folder, create a new folder named `karma/`.
+Inside the `client/` folder, create a new folder named `karma/`.
 
-    We will need 2 files in there: `karma.conf.js` and `karma.entry.js`.
+We will need 2 files in there: `karma.conf.js` and `karma.entry.js`.
 
-    For More information on this approach to testing, read this article: https://semaphoreci.com/community/tutorials/setting-up-angular-2-with-webpack.
+For More information on this approach to testing, read this article: https://semaphoreci.com/community/tutorials/setting-up-angular-2-with-webpack.
 
-    `karma.conf.js` will have the following contents:
+`karma.conf.js` will have the following contents:
 ```js
-    'use strict';
+'use strict';
 
-    module.exports = (config) => {
-      config.set({
-        autoWatch: true,
-        browsers: ['Chrome', 'PhantomJS'],
-        files: [
-          '../node_modules/es6-shim/es6-shim.min.js',
-          'karma.entry.js'
-        ],
-        frameworks: ['jasmine'],
-        logLevel: config.LOG_INFO,
-        phantomJsLauncher: {
-          exitOnResourceError: true
-        },
-        preprocessors: {
-          'karma.entry.js': ['webpack', 'sourcemap']
-        },
-        reporters: ['dots'],
-        singleRun: false,
-        webpack: require('../webpack/webpack.test'),
-        webpackServer: {
-          noInfo: true
-        }
-      });
-    };
+module.exports = (config) => {
+  config.set({
+    autoWatch: true,
+    browsers: ['Chrome', 'PhantomJS'],
+    files: [
+      '../node_modules/es6-shim/es6-shim.min.js',
+      'karma.entry.js'
+    ],
+    frameworks: ['jasmine'],
+    logLevel: config.LOG_INFO,
+    phantomJsLauncher: {
+      exitOnResourceError: true
+    },
+    preprocessors: {
+      'karma.entry.js': ['webpack', 'sourcemap']
+    },
+    reporters: ['dots'],
+    singleRun: false,
+    webpack: require('../webpack/webpack.test'),
+    webpackServer: {
+      noInfo: true
+    }
+  });
+};
 ```
 
-    **Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For More information on ES6, click here: http://es6-features.org/#Constants.
+**Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For More information on ES6, click here: http://es6-features.org/#Constants.
 
-#### 17. `karma.entry.js` will be the entry point for Karma when testing our application.
-
-```js
-    require('es6-shim');
-    require('reflect-metadata');
-    require('zone.js/dist/zone');
-    require('zone.js/dist/long-stack-trace-zone');
-    require('zone.js/dist/async-test');
-    require('zone.js/dist/fake-async-test');
-    require('zone.js/dist/sync-test');
-    require('zone.js/dist/proxy');
-    require('zone.js/dist/jasmine-patch');
-
-    const browserTesting = require('@angular/platform-browser-dynamic/testing');
-    const coreTesting = require('@angular/core/testing');
-
-    coreTesting.TestBed.resetTestEnvironment();
-    coreTesting.TestBed.initTestEnvironment(
-      browserTesting.BrowserDynamicTestingModule,
-      browserTesting.platformBrowserDynamicTesting()
-    );
-
-    const context = require.context('../src/', true, /\.spec\.ts$/);
-    context.keys().forEach(context);
-
-    Error.stackTraceLimit = Infinity;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
-```
-
-    Once configured, this file will not require tweaking.
-
-#### 18. We now need to write `webpack.test.js`:
+#### 18. We now need to write `webpack.test.js`.
 
 ```js
 'use strict';
@@ -357,7 +326,38 @@ module.exports = {
 };
 ```
 
-Simpler than `webpack.dev.js`, it only loads the bare minimum for tests to execute.
+`webpack.test.js` is simpler than `webpack.dev.js`, as it only loads the bare minimum for tests to execute.
+
+#### 17. `karma.entry.js` will be the entry point for Karma when testing our application.
+
+```js
+require('es6-shim');
+require('reflect-metadata');
+require('zone.js/dist/zone');
+require('zone.js/dist/long-stack-trace-zone');
+require('zone.js/dist/async-test');
+require('zone.js/dist/fake-async-test');
+require('zone.js/dist/sync-test');
+require('zone.js/dist/proxy');
+require('zone.js/dist/jasmine-patch');
+
+const browserTesting = require('@angular/platform-browser-dynamic/testing');
+const coreTesting = require('@angular/core/testing');
+
+coreTesting.TestBed.resetTestEnvironment();
+coreTesting.TestBed.initTestEnvironment(
+  browserTesting.BrowserDynamicTestingModule,
+  browserTesting.platformBrowserDynamicTesting()
+);
+
+const context = require.context('../src/', true, /\.spec\.ts$/);
+context.keys().forEach(context);
+
+Error.stackTraceLimit = Infinity;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
+```
+
+Once configured, this file will not require tweaking.
 
 #### 19. Now that we've set up the testing environment, it's time to see it in action.
 
@@ -472,12 +472,20 @@ This is the implementation of the `<app>` selector in `index.html`.
 * `*ngFor`. More information: https://angular.io/docs/ts/latest/tutorial/toh-pt2.html
 * Template Literals; Inline Templates.
 * Lifecycle Hooks: https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html
+
 #### 8. `newMessage`
 * Events and properties.
+
 #### 9. `chatService`
 * `@Injectable`. More information: https://angular.io/docs/ts/latest/guide/dependency-injection.html#!%23injectable
+
 #### 10. Providing the service to the module, instantiating the service.
+* providing & injecting the service,
+* [] attributes,
+* passing data to child components.
+
 #### 11. Submitting new messages.
+
 #### 12. Making use of ChatService in MessageList.
 * RxJS
 
@@ -489,5 +497,6 @@ More information:
 
 More information: http://www.syntaxsuccess.com/viewarticle/socket.io-with-rxjs-in-angular-2.0
 
+---
 
 Aaaand, we're done! :)
