@@ -1,5 +1,6 @@
-   Note: This is a living document. Pull requests and Issues are most welcome.
----
+```
+Note: This is a living document. Pull requests and Issues are most welcome.
+```
 
 # Angular2 Workshop: ng2chat
 
