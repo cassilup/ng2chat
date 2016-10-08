@@ -442,12 +442,12 @@ The folder structure now looks like this:
         |-  webpack.dev.js
         |-  webpack.test.js
     |-  typings.json
+    |-  tsconfig.json
 |-  node_modules/
 |-  server/
     |-  app.js
     |-  index.html
 |-  package.json
-|-  tsconfig.json
 ```
 
 #### 6. Declaring the Application Module
