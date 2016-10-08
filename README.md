@@ -126,10 +126,10 @@ Once these are installed, you're ready to go further.
     ```sh
     typings init
     ```
+
 12. Install needed typings:
     ```sh
-    typings install dt~jasmine env~node --save --global
-    typings install common~es6-promise --save
+    typings install dt~jasmine env~node dt~es6-promise --save --global
     ```
 
     The `--global` flag means that the library is bound to the global scope (eg. it will be invoked by using `window.<variable>`).
@@ -182,80 +182,7 @@ Once these are installed, you're ready to go further.
     |-  tsconfig.json
     ```
 
-
-
-14. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
-
-    Inside the `client/` folder, create a new folder named `karma/`.
-
-    We will need 2 files in there: `karma.conf.js` and `karma.entry.js`.
-
-    For More information on this approach to testing, read this article: https://semaphoreci.com/community/tutorials/setting-up-angular-2-with-webpack.
-
-    `karma.conf.js` will have the following contents:
-    ```js
-    'use strict';
-
-    module.exports = (config) => {
-      config.set({
-        autoWatch: true,
-        browsers: ['Chrome', 'PhantomJS'],
-        files: [
-          '../node_modules/es6-shim/es6-shim.min.js',
-          'karma.entry.js'
-        ],
-        frameworks: ['jasmine'],
-        logLevel: config.LOG_INFO,
-        phantomJsLauncher: {
-          exitOnResourceError: true
-        },
-        preprocessors: {
-          'karma.entry.js': ['webpack', 'sourcemap']
-        },
-        reporters: ['dots'],
-        singleRun: false,
-        webpack: require('../webpack/webpack.test'),
-        webpackServer: {
-          noInfo: true
-        }
-      });
-    };
-    ```
-
-    **Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For More information on ES6, click here: http://es6-features.org/#Constants.
-
-15. `karma.entry.js` will be the entry point for Karma when testing our application.
-
-    ```js
-    require('es6-shim');
-    require('reflect-metadata');
-    require('zone.js/dist/zone');
-    require('zone.js/dist/long-stack-trace-zone');
-    require('zone.js/dist/async-test');
-    require('zone.js/dist/fake-async-test');
-    require('zone.js/dist/sync-test');
-    require('zone.js/dist/proxy');
-    require('zone.js/dist/jasmine-patch');
-
-    const browserTesting = require('@angular/platform-browser-dynamic/testing');
-    const coreTesting = require('@angular/core/testing');
-
-    coreTesting.TestBed.resetTestEnvironment();
-    coreTesting.TestBed.initTestEnvironment(
-      browserTesting.BrowserDynamicTestingModule,
-      browserTesting.platformBrowserDynamicTesting()
-    );
-
-    const context = require.context('../src/', true, /\.spec\.ts$/);
-    context.keys().forEach(context);
-
-    Error.stackTraceLimit = Infinity;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
-    ```
-
-    Once configured, this file will not require tweaking.
-
-16. The last step of the configuration stage is setting up Webpack.
+16. It's now time to set up Webpack.
 
     We create a `webpack/` folder inside the `client/` folder.
 
@@ -317,6 +244,91 @@ Once these are installed, you're ready to go further.
 
     Also, for the `resolve` block, the order of the extensions **does** matter.
 
+
+19. To start our Angular2 app in development mode, type:
+
+        ```sh
+        npm start
+        ```
+
+        To start the API, type:
+
+        ```sh
+        npm run api
+        ```
+
+
+14. We will now set up Karma, the test runner. We are doing this on purpose before writing any Angular2 code, to emphasise the importance of writing tests.
+
+        Inside the `client/` folder, create a new folder named `karma/`.
+
+        We will need 2 files in there: `karma.conf.js` and `karma.entry.js`.
+
+        For More information on this approach to testing, read this article: https://semaphoreci.com/community/tutorials/setting-up-angular-2-with-webpack.
+
+        `karma.conf.js` will have the following contents:
+        ```js
+        'use strict';
+
+        module.exports = (config) => {
+          config.set({
+            autoWatch: true,
+            browsers: ['Chrome', 'PhantomJS'],
+            files: [
+              '../node_modules/es6-shim/es6-shim.min.js',
+              'karma.entry.js'
+            ],
+            frameworks: ['jasmine'],
+            logLevel: config.LOG_INFO,
+            phantomJsLauncher: {
+              exitOnResourceError: true
+            },
+            preprocessors: {
+              'karma.entry.js': ['webpack', 'sourcemap']
+            },
+            reporters: ['dots'],
+            singleRun: false,
+            webpack: require('../webpack/webpack.test'),
+            webpackServer: {
+              noInfo: true
+            }
+          });
+        };
+        ```
+
+        **Note:** We are ussing *ES6* syntax. Namely, the *Arrow Function*. For More information on ES6, click here: http://es6-features.org/#Constants.
+
+    15. `karma.entry.js` will be the entry point for Karma when testing our application.
+
+        ```js
+        require('es6-shim');
+        require('reflect-metadata');
+        require('zone.js/dist/zone');
+        require('zone.js/dist/long-stack-trace-zone');
+        require('zone.js/dist/async-test');
+        require('zone.js/dist/fake-async-test');
+        require('zone.js/dist/sync-test');
+        require('zone.js/dist/proxy');
+        require('zone.js/dist/jasmine-patch');
+
+        const browserTesting = require('@angular/platform-browser-dynamic/testing');
+        const coreTesting = require('@angular/core/testing');
+
+        coreTesting.TestBed.resetTestEnvironment();
+        coreTesting.TestBed.initTestEnvironment(
+          browserTesting.BrowserDynamicTestingModule,
+          browserTesting.platformBrowserDynamicTesting()
+        );
+
+        const context = require.context('../src/', true, /\.spec\.ts$/);
+        context.keys().forEach(context);
+
+        Error.stackTraceLimit = Infinity;
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
+        ```
+
+        Once configured, this file will not require tweaking.
+
 18. We now need to write `webpack.test.js`:
 
     ```js
@@ -344,31 +356,21 @@ Once these are installed, you're ready to go further.
 
     Simpler than `webpack.dev.js`, it only loads the bare minimum for tests to execute.
 
-19. To start our Angular2 app in development mode, type:
+19. Now that we've set up the testing environment, it's time to see it in action.
 
-    ```sh
-    npm start
-    ```
-
-    To start the API, type:
-
-    ```sh
-    npm run api
-    ```
-
-    Additionally, to start the unit tests, run:
+    To start the test suite, run:
 
     ```sh
     npm test
     ```
 
-    or
+    For Headless testing:
 
     ```sh
     npm test:headless
     ```
 
-    This is how we will be starting our application from here on.
+--
 
 ## 2. Writing the Angular2 Application
 
