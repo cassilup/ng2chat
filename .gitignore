@@ -1,5 +1,7 @@
 node_modules/
 typings/
+1-final/client/src/**/*.js
+1-final/client/src/**/*.js.map
 2-final/client/src/**/*.js
 2-final/client/src/**/*.js.map
 npm-debug.log
