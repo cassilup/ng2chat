@@ -1,11 +1,11 @@
+   Note: This is a living document. Pull requests and Issues are most welcome.
+---
+
 # Angular2 Workshop: ng2chat
 
 ## Introduction
 Starting from the [official Socket.io chat example](https://github.com/rauchg/chat-example), we are building an Angular2 chat app in order to explore some of Angular's features.
 
----
-***Note:*** This is a living document. Pull requests and Issues are most welcome.
----
 
 We will be using Webpack for bundling all the assets together.
 
