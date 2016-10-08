@@ -471,6 +471,7 @@ Once these are installed, you're ready to go further.
     * Each component gets its own folder.
     * `*ngFor`. More information: https://angular.io/docs/ts/latest/tutorial/toh-pt2.html
     * Template Literals; Inline Templates.
+    * Lifecycle Hooks: https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html
 #### 8. `newMessage`
     * Events and properties.
 #### 9. `chatService`
