@@ -399,8 +399,19 @@ npm test:headless
 
 #### 1. Create `src/` folder
 #### 2. Create `index.html`
+
+```html
+<!doctype html>
+<html>
+   <body>
+      <app>Loading...</app>
+   </body>
+</html>
+```
+
 * Notice there's no `<script>` tag. Neither a `<style>` one.
 * Notice the `<app>` tag.
+
 #### 3. Bootstrap Angular2 app through `bootstrap.ts`.
 ```js
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
