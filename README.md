@@ -82,8 +82,8 @@ Navigate to http://localhost:3000. You should see the Socket.io chat app.
  * Create a new folder: `client/`
  * Create a new folder: `server/`
  * Move `app.js` and `index.html` into `server/`.
- * **Note:** (We leave `node_modules/` together with `package.json`.
- * **Best Practice:** Have only one `package.json` file per project.)
+ * **Note:** We leave `node_modules/` together with `package.json`. The two always belong together.
+ * **Best Practice:** Have only one `package.json` file per project.
 
 The new folder structure is:
 ```
