@@ -82,8 +82,8 @@ Navigate to http://localhost:3000. You should see the Socket.io chat app.
  * Create a new folder: `client/`
  * Create a new folder: `server/`
  * Move `app.js` and `index.html` into `server/`.
- * **Note:** (We leave `node_modules/` together with `package.json`.
- * **Best Practice:** Have only one `package.json` file per project.)
+ * **Note:** We leave `node_modules/` together with `package.json`. The two always belong together.
+ * **Best Practice:** Have only one `package.json` file per project.
 
 The new folder structure is:
 ```
@@ -116,7 +116,6 @@ Also, here is Misko Hevery's Zones proposal to TC39:
 ```sh
 npm install --save-dev webpack webpack-dev-server typescript ts-loader css-loader extract-text-webpack-plugin html-webpack-plugin raw-loader style-loader
 npm install --global typings
-
 ```
 
 #### 9. Install Testing npm packages:
