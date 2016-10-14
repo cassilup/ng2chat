@@ -24,7 +24,7 @@ Topics we will be covering during this workshop:
     * NgModule,
     * Special Decorators,
     * Services (Declaring, Providing and Injecting),
-    * Change detection (Zones provider by zone.js),
+    * Change detection (Zones provided by zone.js),
     * RxJS (Observables),
     * Templates (ngFor, HTMLElement by reference)
     * Karma + Jasmine Testing,
