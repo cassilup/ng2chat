@@ -398,8 +398,19 @@ npm test:headless
 
 #### 1. Create `src/` folder
 #### 2. Create `index.html`
+
+```html
+<!doctype html>
+<html>
+   <body>
+      <app>Loading...</app>
+   </body>
+</html>
+```
+
 * Notice there's no `<script>` tag. Neither a `<style>` one.
 * Notice the `<app>` tag.
+
 #### 3. Bootstrap Angular2 app through `bootstrap.ts`.
 ```js
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -411,6 +422,8 @@ platform.bootstrapModule(AppModule);
 
 We need to use `platformBrowserDynamic` because we're writing an app that compiles the templates dynamically in the browser. We also need thesethis line because Angular2 can run on multiple platforms.
 
+Note that the [ES6 import syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) is *"destructuring-like"* and not actually [ES6 destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment). Find out more about the subject here: https://ponyfoo.com/articles/es6-destructuring-in-depth#special-case-import-statements
+
 #### 4. Create `vendor.ts`
 ```js
 import 'es6-promise';
@@ -419,6 +432,8 @@ import 'zone.js/dist/zone';
 ```
 
 Libraries that Angular2 needs in order to run. We keep them separated for the sake of clarity.
+
+Note that the syntax used here is a special case of the [ES6 import statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Description), where it just brings in a package and attaches it to the global scope.
 
 #### 5. Create the `app/` folder inside `client/src/`.
 
@@ -468,7 +483,7 @@ import { App } from './app.component';
 export class AppModule { }
 ```
 
-More information on `@NgModule` can be found here: https://angular.io/docs/ts/latest/guide/ngmodule.html
+More information on `@NgModule` can be found here: https://angular.io/docs/ts/latest/guide/ngmodule.html and here: https://www.youtube.com/watch?v=Usohbij6frA
 
 #### 6. Once we've created our module, we can proceed to create our first Component. `app/app/component.ts`:
 
@@ -491,6 +506,7 @@ This is the implementation of the `<app>` selector in `index.html`.
 * `*ngFor`. More information: https://angular.io/docs/ts/latest/tutorial/toh-pt2.html
 * Template Literals; Inline Templates.
 * Lifecycle Hooks: https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html
+* `@Input`: https://angular.io/docs/ts/latest/guide/template-syntax.html#!#inputs-outputs
 
 #### 8. `newMessage`
 * Events and properties.
@@ -499,14 +515,16 @@ This is the implementation of the `<app>` selector in `index.html`.
 * `@Injectable`. More information: https://angular.io/docs/ts/latest/guide/dependency-injection.html#!%23injectable
 
 #### 10. Providing the service to the module, instantiating the service.
-* providing & injecting the service,
-* [] attributes,
-* passing data to child components.
+* Providing & injecting the service (https://angular.io/docs/ts/latest/guide/dependency-injection.html),
+* `[]` attributes (https://angular.io/docs/ts/latest/guide/attribute-directives.html),
+* Passing data to child components through attributes.
 
 #### 11. Submitting new messages.
+* Notice that Angular2 automatically keeps the Components in sync with the data in the service.
 
 #### 12. Making use of ChatService in MessageList.
-* RxJS
+* RxJS: https://egghead.io/lessons/rxjs-reactive-programming-what-is-rxjs
+* Observables are just promises that resolve multiple times.
 
 More information:
 * http://stackoverflow.com/questions/37363121/get-and-update-a-string-through-a-service-in-angular-2
